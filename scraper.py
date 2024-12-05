@@ -45,19 +45,6 @@ try:
     print("Password input field found and interacted with!")
 except Exception as e:
     print("Error locating the password input field:", e)
-# password = driver.find_element(By.NAME, "password")
-# password = driver.find_element(By.CSS_SELECTOR, 'input[class="r-30o5oe r-1dz5y72 r-13qz1uu r-1niwhzg r-17gur6a r-1yadl64 r-deolkf r-homxoj r-poiln3 r-7cikom r-1ny4l3l r-t60dpp r-fdjqy7"]')
-# wait for the visibility of the password input field.
-# WebDriverWait(driver, 10).until(EC.visibility_of_element_located((By.CSS_SELECTOR, 'input[type="text"]')))
-# password.send_keys(os.getenv("PASSWORD"))
-# password.send_keys(Keys.RETURN)
-time.sleep(4)
-
-# wait for login completion (max wait is 5 seconds)
-time.sleep(4) # wait for 4 seconds (to update this one.)
-# WebDriverWait(driver, 5).until(EC.visibility_of_element_located((By.CLASS_NAME, "css-175oi2r r-6koalj r-eqz5dr r-16y2uox r-1habvwh r-cnw61z r-13qz1uu r-1ny4l3l r-1loqt21")))
-# after logging in navigate to the profile section of the user.
-
 
 print("done")
 
@@ -77,6 +64,32 @@ driver.get(FOLLOWERS_PAGE)
 # followers = driver.find_elements(By.CSS_SELECTOR, "div[dir='ltr'] > span")
 
 # for follower in followers:
+#     print(follower.text)
+
+print(f"fetching the followers data")
+
+# followers = driver.find_elements(By.CSS_SELECTOR, "span.css-1jxf684 r-bcqeeo r-1ttztb7 r-qvutc0 r-poiln3")
+# wait unitl the followers are visible
+# followers = WebDriverWait(driver, 10).until(EC.visibility_of_all_elements_located((By.CSS_SELECTOR, "span.css-1jxf684.r-bcqeeo.r-1ttztb7.r-qvutc0.r-poiln3")))
+# followers = driver.find_elements(By.CSS_SELECTOR, "span.css-1jxf684.r-bcqeeo.r-1ttztb7.r-qvutc0.r-poiln3")
+# print(len(followers))
+
+from selenium.common.exceptions import TimeoutException
+
+try:
+    followers = WebDriverWait(driver, 10).until(
+        EC.visibility_of_all_elements_located(
+            (By.CSS_SELECTOR, "div.css-175oi2r > div.css-175oi2r.r-1awozwy.r-18u37iz.r-1wbh5a2 > div.css-175oi2r.r-1wbh5a2.r-dnmrzs > a.css-175oi2r.r-1wbh5a2.r-dnmrzs.r-1ny4l3l.r-1loqt21 > div.css-175oi2r > div.css-146c3p1.r-dnmrzs.r-1udh08x.r-3s2u2q.r-bcqeeo.r-1ttztb7.r-qvutc0.r-37j5jr.r-a023e6.r-rjixqe.r-16dba41.r-18u37iz.r-1wvb978 > span.css-1jxf684.r-bcqeeo.r-1ttztb7.r-qvutc0.r-poiln3")
+        )
+    )
+    for follower in followers:
+        print(follower.text)
+except TimeoutException:
+    print("Followers not found within the given timeout period.")
+
+
+# for idx,follower in enumerate(followers):
+#     print(f"follower number {idx + 1}\n")
 #     print(follower.text)
 
 driver.quit()
