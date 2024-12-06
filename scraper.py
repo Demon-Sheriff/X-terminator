@@ -4,7 +4,6 @@ from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
-import time
 import os, dotenv
 
 TWITTER_LOGIN_URL = "https://x.com/prompt_Tunes/"
@@ -13,7 +12,6 @@ FOLLOWERS_PAGE = "https://x.com/prompt_Tunes/followers"
 dotenv.load_dotenv()
 options = Options()
 options.binary_location = '/usr/bin/brave-browser'
-# driver_path = 
 
 # logging into twitter
 driver = webdriver.Chrome(options=options)
@@ -23,11 +21,11 @@ driver.get(TWITTER_LOGIN_URL)
 # time.sleep(4)
 
 # wait for the visibility of username input field
-WebDriverWait(driver, 10).until(EC.visibility_of_element_located((By.CSS_SELECTOR, 'input[type="text"]')))
+username = WebDriverWait(driver, 10).until(EC.visibility_of_element_located((By.CSS_SELECTOR, 'input[type="text"]')))
 print("me is done")
 # input the username
 # username = driver.find_element('xpath', "//input[@autocomplete='username']")
-username = driver.find_element(By.CSS_SELECTOR, 'input[type="text"]')
+# username = driver.find_element(By.CSS_SELECTOR, 'input[type="text"]')
 print("this is done")
 username.send_keys("prompt_Tunes")
 username.send_keys(Keys.RETURN)
@@ -79,17 +77,12 @@ from selenium.common.exceptions import TimeoutException
 try:
     followers = WebDriverWait(driver, 10).until(
         EC.visibility_of_all_elements_located(
-            (By.CSS_SELECTOR, "div.css-175oi2r > div.css-175oi2r.r-1awozwy.r-18u37iz.r-1wbh5a2 > div.css-175oi2r.r-1wbh5a2.r-dnmrzs > a.css-175oi2r.r-1wbh5a2.r-dnmrzs.r-1ny4l3l.r-1loqt21 > div.css-175oi2r > div.css-146c3p1.r-dnmrzs.r-1udh08x.r-3s2u2q.r-bcqeeo.r-1ttztb7.r-qvutc0.r-37j5jr.r-a023e6.r-rjixqe.r-16dba41.r-18u37iz.r-1wvb978 > span.css-1jxf684.r-bcqeeo.r-1ttztb7.r-qvutc0.r-poiln3")
+            (By.CSS_SELECTOR, "div[data-testid='primaryColumn']  div.css-175oi2r > div.css-175oi2r.r-1awozwy.r-18u37iz.r-1wbh5a2 > div.css-175oi2r.r-1wbh5a2.r-dnmrzs > a.css-175oi2r.r-1wbh5a2.r-dnmrzs.r-1ny4l3l.r-1loqt21 > div.css-175oi2r > div.css-146c3p1.r-dnmrzs.r-1udh08x.r-3s2u2q.r-bcqeeo.r-1ttztb7.r-qvutc0.r-37j5jr.r-a023e6.r-rjixqe.r-16dba41.r-18u37iz.r-1wvb978 > span.css-1jxf684.r-bcqeeo.r-1ttztb7.r-qvutc0.r-poiln3")
         )
     )
     for follower in followers:
         print(follower.text)
 except TimeoutException:
     print("Followers not found within the given timeout period.")
-
-
-# for idx,follower in enumerate(followers):
-#     print(f"follower number {idx + 1}\n")
-#     print(follower.text)
 
 driver.quit()
