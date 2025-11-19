@@ -6,8 +6,8 @@ from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 import os, dotenv
 
-TWITTER_LOGIN_URL = "https://x.com/prompt_Tunes/"
-FOLLOWERS_PAGE = "https://x.com/prompt_Tunes/followers"
+TWITTER_LOGIN_URL = "https://x.com/prompt/"
+FOLLOWERS_PAGE = "https://x.com/prompt/followers"
 
 dotenv.load_dotenv()
 options = Options()
